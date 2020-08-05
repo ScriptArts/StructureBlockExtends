@@ -21,7 +21,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-public class StructureBlockEx extends StructureBlock {
+public class StructureBlockEx extends ContainerBlock {
     public static final EnumProperty<StructureMode> MODE = BlockStateProperties.STRUCTURE_BLOCK_MODE;
 
     public StructureBlockEx(AbstractBlock.Properties properties) {
@@ -72,14 +72,14 @@ public class StructureBlockEx extends StructureBlock {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
             if (tileentity instanceof StructureBlockExTileEntity) {
-                StructureBlockExTileEntity structureblocktileentity = (StructureBlockExTileEntity)tileentity;
+                StructureBlockExTileEntity structureBlockExTileEntity = (StructureBlockExTileEntity)tileentity;
                 boolean flag = worldIn.isBlockPowered(pos);
-                boolean flag1 = structureblocktileentity.isPowered();
+                boolean flag1 = structureBlockExTileEntity.isPowered();
                 if (flag && !flag1) {
-                    structureblocktileentity.setPowered(true);
-                    this.trigger(structureblocktileentity);
+                    structureBlockExTileEntity.setPowered(true);
+                    this.trigger(structureBlockExTileEntity);
                 } else if (!flag && flag1) {
-                    structureblocktileentity.setPowered(false);
+                    structureBlockExTileEntity.setPowered(false);
                 }
 
             }

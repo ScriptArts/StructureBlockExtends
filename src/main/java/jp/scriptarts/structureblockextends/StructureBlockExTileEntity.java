@@ -17,6 +17,7 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.StructureMode;
 import net.minecraft.tileentity.StructureBlockTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
@@ -53,6 +54,38 @@ public class StructureBlockExTileEntity extends StructureBlockTileEntity {
 
     private static int SIZE_MAX = 1000;
     private static int SIZE_MIN = -1000;
+
+    public StructureBlockExTileEntity() {
+        super();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public double getMaxRenderDistanceSquared() {
+        return 96.0D;
+    }
+
+    public CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
+        compound.putString("name", this.getName());
+        compound.putString("author", this.author);
+        compound.putString("metadata", this.metadata);
+        compound.putInt("posX", this.position.getX());
+        compound.putInt("posY", this.position.getY());
+        compound.putInt("posZ", this.position.getZ());
+        compound.putInt("sizeX", this.size.getX());
+        compound.putInt("sizeY", this.size.getY());
+        compound.putInt("sizeZ", this.size.getZ());
+        compound.putString("rotation", this.rotation.toString());
+        compound.putString("mirror", this.mirror.toString());
+        compound.putString("mode", this.mode.toString());
+        compound.putBoolean("ignoreEntities", this.ignoreEntities);
+        compound.putBoolean("powered", this.powered);
+        compound.putBoolean("showair", this.showAir);
+        compound.putBoolean("showboundingbox", this.showBoundingBox);
+        compound.putFloat("integrity", this.integrity);
+        compound.putLong("seed", this.seed);
+        return compound;
+    }
 
     public void func_230337_a_(BlockState p_230337_1_, CompoundNBT p_230337_2_) {
         super.func_230337_a_(p_230337_1_, p_230337_2_);
